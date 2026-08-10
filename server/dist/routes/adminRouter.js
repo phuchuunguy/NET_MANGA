@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const adminController_1 = require("../controllers/adminController");
+const notificationController_1 = require("../controllers/notificationController");
+const route = express_1.default.Router();
+route.get("/users", adminController_1.getAllUsers);
+route.get("/vip-levels", adminController_1.getAllVipLevels);
+route.get("/comments", adminController_1.getAllComments);
+route.get("/feedbacks", adminController_1.getAllFeedbacks);
+route.get("/notifications", adminController_1.getAllNotifications);
+route.post("/notification", notificationController_1.createNotification);
+route.delete("/notification", notificationController_1.deleteNotification);
+route.put("/notification/:id", notificationController_1.updateNotification);
+route.put("/user/:id/role", adminController_1.updateUserRole);
+route.put("/user/:id/vip-level", adminController_1.updateVipLevels);
+route.put("/comment/:id/spam", adminController_1.markUserCommentAsSpam);
+exports.default = route;
