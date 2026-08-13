@@ -1,38 +1,26 @@
 "use client";
 
-import { criterion, ListUserProps } from "@/lib/types";
+import { ListUserProps } from "@/lib/types";
 import { useEffect, useRef, useState } from "react";
 import ListUser from "./ListUser";
 import { getUserRankings } from "@/lib/actions/user";
 import SkeletonRankings from "../skeleton/SkeletonRankings";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { Divider, message, Tabs, TabsProps } from "antd";
-import { TrophyOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import { socket } from "@/lib/socket";
 import { useSession } from "next-auth/react";
 
 const Rankings = () => {
-  const [criterion, setCriterion] = useState<criterion>("vip_level");
-  const width = useSelector((state: RootState) => state.system.width);
-  const [data, setData] = useState<ListUserProps>({
-    criterion: "vip_level",
-    users: [],
-  });
+  const [data, setData]   = useState<ListUserProps>({ criterion: "vip_level", users: [] });
   const [loading, setLoading] = useState(true);
-  const [key, setKey] = useState("1");
-  const currentScrollRef = useRef<HTMLDivElement>(null);
+  const currentScrollRef  = useRef<HTMLDivElement>(null);
   const { data: sesstion } = useSession();
 
-  useEffect(() => {
-    fetchData();
-  }, [criterion]);
+  useEffect(() => { fetchData(); }, []);
 
   const fetchData = async () => {
     setLoading(true);
-    const response = await getUserRankings(criterion);
+    const response = await getUserRankings("vip_level");
     setLoading(false);
-
     if (response?.status === "success") {
       setData(response.data);
     } else {
@@ -47,92 +35,64 @@ const Rankings = () => {
         message.info("Bảng xếp hạng vừa được cập nhật");
       }
     });
-
-    return () => {
-      socket.off("refresh-sesstion");
-    };
+    return () => { socket.off("refresh-sesstion"); };
   }, [sesstion]);
-
-  const items: TabsProps["items"] = [
-    {
-      key: "1",
-      label: "Cấp độ Vip",
-      children: (
-        <ListUser
-          showFrame={true}
-          users={data.users}
-          criterion={data.criterion}
-          type="vip"
-        />
-      ),
-    },
-    {
-      key: "2",
-      label: "Truyện đã lưu",
-      children: (
-        <ListUser
-          showFrame={true}
-          users={data.users}
-          criterion={data.criterion}
-          type="top"
-        />
-      ),
-    },
-    {
-      key: "3",
-      label: "Truyện đã xem",
-      children: (
-        <ListUser
-          showFrame={true}
-          users={data.users}
-          criterion={data.criterion}
-          type="top"
-        />
-      ),
-    },
-    {
-      key: "4",
-      label: "Bình luận đã viết",
-      children: (
-        <ListUser
-          showFrame={true}
-          users={data.users}
-          criterion={data.criterion}
-          type="top"
-        />
-      ),
-    },
-  ];
-
-  const onChange = (key: string) => {
-    if (key === "1") {
-      setCriterion("vip_level");
-    } else if (key === "2") {
-      setCriterion("saved_comic");
-    } else if (key === "3") {
-      setCriterion("number_of_stories_read");
-    } else if (key === "4") {
-      setCriterion("comment_wrote");
-    }
-
-    setKey(key);
-  };
-
-  if (loading) return <SkeletonRankings />;
 
   return (
     <div ref={currentScrollRef}>
-      <Divider orientation="center" style={{ marginBottom: "32px" }}>
-        <TrophyOutlined className="mr-1" />
-        Bảng xếp hạng
-      </Divider>
-      <Tabs
-        activeKey={key}
-        tabPosition={width > 1200 ? "left" : "top"}
-        centered
-        items={items}
-        onChange={onChange}
-      />
+
+      {/* Header */}
+      <div style={{ textAlign: "center", marginBottom: "24px" }}>
+        <div style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "10px",
+          padding: "8px 24px",
+          borderRadius: "50px",
+          border: "1px solid rgba(234,179,8,0.35)",
+          background: "rgba(234,179,8,0.08)",
+        }}>
+          <span style={{ fontSize: "20px" }}>🏆</span>
+          <span style={{
+            fontSize: "16px",
+            fontWeight: 800,
+            background: "linear-gradient(135deg,#EAB308,#F97316)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            letterSpacing: "1.5px",
+          }}>
+            BẢNG XẾP HẠNG
+          </span>
+          <span style={{ fontSize: "20px" }}>🏆</span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="rank-content">
+        {loading ? (
+          <SkeletonRankings />
+        ) : (
+          <ListUser
+            showFrame={true}
+            users={data.users}
+            criterion={data.criterion}
+            type="vip"
+          />
+        )}
+      </div>
+
+      <style>{`
+        .rank-content {
+          background: rgba(0,0,0,0.02);
+          border: 1px solid rgba(0,0,0,0.07);
+          border-radius: 16px;
+          padding: 20px;
+        }
+        .dark .rank-content {
+          background: rgba(255,255,255,0.02);
+          border-color: rgba(255,255,255,0.07);
+        }
+      `}</style>
     </div>
   );
 };

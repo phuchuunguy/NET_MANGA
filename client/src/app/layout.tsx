@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { StoreProvider } from "@/store/StoreProvieder";
 import NextTopLoader from "nextjs-toploader";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "next-themes";
 import App from "@/components/App";
 import "./globals.css";
 
@@ -35,10 +36,12 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
-          <SessionProvider>
-            <App>{children}</App>
-          </SessionProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
+            <SessionProvider>
+              <App>{children}</App>
+            </SessionProvider>
+          </ThemeProvider>
         </body>
       </html>
     </StoreProvider>
