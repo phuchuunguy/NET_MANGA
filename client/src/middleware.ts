@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
     cookieName:
-      process.env.ENV === "development"
+      process.env.NODE_ENV === "development"
         ? "authjs.session-token"
         : "__Secure-authjs.session-token",
   });

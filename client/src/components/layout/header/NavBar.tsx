@@ -10,6 +10,7 @@ import AvartarUser from "./AvartarUser";
 import SearchComic from "./SearchComic";
 import AuthButton from "./AuthButton";
 import Notification from "./Notification";
+import ThemeToggle from "./ThemeToggle";
 import { Skeleton } from "antd";
 import { pathHideNavBar } from "@/lib/defind";
 
@@ -45,10 +46,12 @@ const NavBar = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         {width > 1024 && <SearchComic />}
 
         {width > 1024 && <Notification />}
+
+        <ThemeToggle />
 
         {status === "loading" && <Skeleton.Input style={{ width: 100 }} />}
 

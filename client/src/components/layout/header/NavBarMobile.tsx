@@ -18,6 +18,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { pathHideNavBar } from "@/lib/defind";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "/", label: "Trang chủ", icon: <HomeOutlined /> },
@@ -76,9 +77,10 @@ const NavBarMobile = () => {
         ${isVisiable ? "transform-none" : "translate-y-full"}
       `}
     >
-      <ul className="flex space-x-1 max-w-3xl mx-auto w-[768px]">
-        {links?.map(({ href, label, icon }, index) => (
-          <li
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <ul className="flex space-x-1 max-w-3xl mx-auto w-[768px]">
+          {links?.map(({ href, label, icon }, index) => (
+            <li
             onClick={() => handleChangeTab(index)}
             className="flex-auto"
             key={index}
@@ -98,7 +100,9 @@ const NavBarMobile = () => {
             </Link>
           </li>
         ))}
-      </ul>
+        </ul>
+        <ThemeToggle />
+      </div>
     </div>
   );
 };

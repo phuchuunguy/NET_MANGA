@@ -22,10 +22,9 @@ const SlideItem = ({ slide }: any) => {
         </Typography.Text>
         {slide?.chaptersLatest && (
           <Link
-            href={`/dang-xem/${slide?.slug}/${
-              slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
+            href={`/dang-xem/${slide?.slug}/${slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
               "?status=404"
-            }`}
+              }`}
             className="w-full"
           >
             <Button
