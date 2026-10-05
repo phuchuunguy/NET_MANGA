@@ -8,14 +8,10 @@
 ![image](https://github.com/user-attachments/assets/4322c392-0e1b-4589-9b74-ce69bcfcc4e5)
 
 # TRANG CHỦ
-![image](https://github.com/user-attachments/assets/ee76b5b9-0794-4a34-9b29-03edbf0fbfeb)
-![image](https://github.com/user-attachments/assets/6323319e-e4ed-4c03-86c9-655948b5d71f)
-![image](https://github.com/user-attachments/assets/941d7760-7bd3-40ac-8ac8-b65b83364363)
+Update...
 
 # THÔNG TIN TRUYỆN
-![image](https://github.com/user-attachments/assets/eedbecaa-0a77-4510-acdf-fdb724b2adec)
-![image](https://github.com/user-attachments/assets/632a05c1-4b3a-4c0a-9f69-f3684bcbe216)
-![image](https://github.com/user-attachments/assets/e8e4c61e-7201-4ffe-8e22-d36b6cf70b6b)
+Update...
 
 # TRUYỆN THEO THỂ LOẠI
 ![image](https://github.com/user-attachments/assets/3127df39-5ce0-482a-8d7a-5c30541f4c90)
