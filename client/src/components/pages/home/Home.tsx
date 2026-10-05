@@ -63,7 +63,7 @@ export default function Home() {
     },
     {
       id: 4,
-      name: "Truyện sắp ra mắt",
+      name: "Manga mới tạo",
       href: "/chi-tiet/danh-sach/sap-ra-mat",
       data: upComingComic,
       loading: upComingComicLoading,

@@ -16,16 +16,21 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItemProps) => {
     data?.chaptersLatest?.[0]?.chapter_name ?? data?.chapter_name;
   const chapterId =
     data?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
-    data?.id ??
-    "?status=comic-error";
-  const textRibbon = chapterName ? `Chương ${chapterName}` : "Truyện đang lỗi";
+    ((pathname === "/kho-luu-tru" || pathname === "/lich-su-da-xem") ? data?.id : undefined);
+  const statusLabels: Record<string, string> = {
+    ongoing: "Đang phát hành",
+    completed: "Đã hoàn thành",
+    hiatus: "Tạm dừng",
+    cancelled: "Đã hủy",
+  };
+  const textRibbon = chapterName
+    ? `Chương ${chapterName}`
+    : statusLabels[data?.status] ?? "MangaDex";
   const link = `/dang-xem/${data?.slug}/${chapterId}`;
 
   useEffect(() => {
     if (data?.thumb_url) {
-      setImageSrc(
-        `${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${data.thumb_url}`
-      );
+      setImageSrc(data.thumb_url);
       return;
     }
 
@@ -41,11 +46,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItemProps) => {
   return (
     <Badge.Ribbon
       placement="start"
-      color={
-        data?.chaptersLatest || data?.chapters || data?.chapter_name
-          ? "cyan"
-          : "red"
-      }
+      color={data?.status === "completed" ? "green" : "cyan"}
       text={textRibbon}
     >
       <div className="relative group overflow-hidden w-full">
@@ -84,7 +85,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItemProps) => {
         )}
 
         <div className="absolute lg:top-full top-[72%] flex justify-center gap-2 left-[12px] right-[12px] lg:opacity-0 group-hover:opacity-100 rounded-xl transition-all lg:group-hover:top-[70%]">
-          <Link href={link} className="w-full">
+          <Link href={chapterId ? link : `/thong-tin-truyen/${data?.slug}`} className="w-full">
             <Button
               className="w-full"
               type="link"

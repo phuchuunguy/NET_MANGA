@@ -38,7 +38,8 @@ const ListUser = ({ users, criterion, showFrame, type }: ListUserProps) => {
           const rank = index + 1;
           const pod  = podium[rank];
           const isMe = session?.user?.id === item?.user_id;
-          const vip  = vipColor[item?.vip_level];
+          const vipLevel = item?.vip_level;
+          const vip = vipLevel != null ? vipColor[vipLevel as keyof typeof vipColor] : undefined;
 
           return (
             <div

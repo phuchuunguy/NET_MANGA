@@ -70,7 +70,7 @@ export const SessionInfo = ({ data }: any) => {
             currentTarget.src = "/error-img.png";
           }}
           style={{ borderRadius: "8px", border: "1px solid #f0f0f0" }}
-          src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${data?.thumb_url}`}
+          src={data?.thumb_url ?? "/images/error-img.png"}
           alt={data?.name ?? "Không xác định"}
           width={200}
           height={260}

@@ -34,7 +34,7 @@ const ComicSuggesion = ({ title }: { title: string }) => {
                   currentTarget.src = "/error-img.png";
                 }}
                 className="w-full h-full object-cover"
-                src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${item?.thumb_url}`}
+                src={item?.thumb_url ?? "/images/error-img.png"}
                 alt={item?.name}
               />
             </figure>
@@ -43,7 +43,7 @@ const ComicSuggesion = ({ title }: { title: string }) => {
               <span className="text-xs">
                 {item?.chaptersLatest?.[0]?.chapter_name
                   ? `Chương mới nhất ${item?.chaptersLatest?.[0]?.chapter_name}`
-                  : "Truyện đang lỗi"}
+                  : item?.status === "completed" ? "Đã hoàn thành" : "Đang phát hành"}
               </span>
               <span className="text-slate-500 text-xs">
                 Cập nhật {formatDate(item?.updatedAt ?? "lỗi")}

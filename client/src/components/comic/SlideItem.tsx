@@ -12,7 +12,7 @@ const SlideItem = ({ slide }: any) => {
             currentTarget.src = "/images/error-img.png";
           }}
           loading="lazy"
-          src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${slide?.thumb_url}`}
+          src={slide?.thumb_url ?? "/images/error-img.png"}
           alt={slide?.slug ?? "Không xác định"}
         />
       </Link>
@@ -20,7 +20,7 @@ const SlideItem = ({ slide }: any) => {
         <Typography.Text className="font-bold block mb-2 truncate text-gray-50 transition-all">
           {slide?.name ?? "Không xác định"}
         </Typography.Text>
-        {slide?.chaptersLatest && (
+        {slide?.chaptersLatest?.[0]?.chapter_api_data && (
           <Link
             href={`/dang-xem/${slide?.slug}/${slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
               "?status=404"

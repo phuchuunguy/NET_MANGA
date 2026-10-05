@@ -59,7 +59,7 @@ const SearchPreview = ({
                     currentTarget.src = "/error-img.png";
                   }}
                   className="w-full h-full object-cover"
-                  src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${item?.thumb_url}`}
+                  src={item?.thumb_url ?? "/images/error-img.png"}
                   alt={item?.name}
                 />
               </figure>

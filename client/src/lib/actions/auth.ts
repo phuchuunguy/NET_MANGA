@@ -21,14 +21,13 @@ export async function authenticate(
       message: "Đăng nhập thành công!",
     };
   } catch (error: any) {
-    console.log(error);
-
     switch (error?.code) {
       case "invalid_credentials":
         return { status: "error", message: error?.details };
       case "zod_error":
         return { status: "error", message: error?.details };
       default:
+        console.error("Authentication failed:", error);
         return {
           status: "error",
           message: "Đã có lỗi xảy ra, vui lòng thử lại sau!",

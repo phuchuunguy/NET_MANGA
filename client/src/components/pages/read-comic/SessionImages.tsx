@@ -8,7 +8,7 @@ const SessionImage = ({ item }: any) => {
   return (
     <div className="flex flex-col items-center mt-8">
       <Image.PreviewGroup>
-        {item?.chapter_image?.map((image: any, index: number) => (
+        {item?.imageUrls?.map((imageUrl: string, index: number) => (
           <Image
             loading="lazy"
             key={index}
@@ -18,7 +18,7 @@ const SessionImage = ({ item }: any) => {
               minHeight: "320px",
               border: "0 1px 0 1px solid #f0f0f0",
             }}
-            src={`https://sv1.otruyencdn.com/${item?.chapter_path}/${image?.image_file}`}
+            src={imageUrl}
             placeholder={<Empty description="Đang tải hình ảnh..." />}
             alt={item?.chapter_name ?? "không xác định"}
           />

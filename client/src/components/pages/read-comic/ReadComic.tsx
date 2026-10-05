@@ -33,8 +33,8 @@ const ReadComic = () => {
   const breadCrumb = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Đang xem truyện" },
-    { title: `${items?.name}` },
-    { title: `Chương ${item?.chapter_name}` },
+    { title: items?.name ?? "Không xác định" },
+    { title: `Chương ${item?.chapter_name ?? "Không xác định"}` },
   ];
 
   useEffect(() => {
@@ -53,21 +53,21 @@ const ReadComic = () => {
         const dataChapterComic = resImages?.payload?.data?.item;
 
         const { slug, name, thumb_url } = dataComicInfo;
-        const { chapter_name, _id } = dataChapterComic;
+        const { chapter_name, id } = dataChapterComic;
 
         if (
           slug &&
           name &&
           thumb_url &&
           chapter_name &&
-          _id &&
+          id &&
           session?.user?.id
         ) {
           dispatch(
             saveComic({
               userId: session?.user?.id as string,
               dataComic: {
-                id: _id,
+                id,
                 chapter_name: chapter_name,
                 name: name,
                 slug: slug,

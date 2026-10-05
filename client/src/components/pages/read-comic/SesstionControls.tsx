@@ -13,7 +13,7 @@ const SessionControls = ({ dataInfoComic, dataChapterComic }: any) => {
     ...chapters?.map((item: any) => {
       return {
         value: item?.chapter_api_data?.split("/").pop(),
-        label: `Chương ${item?.chapter_name}`,
+        label: `Chương ${item?.chapter_name ?? "Không xác định"}`,
       };
     }),
   ];

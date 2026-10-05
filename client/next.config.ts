@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "otruyenapi.com",
+        hostname: "uploads.mangadex.org",
         port: "",
         pathname: "**",
       },
